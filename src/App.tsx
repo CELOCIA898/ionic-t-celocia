@@ -57,6 +57,8 @@ const App: React.FC = () => (
           <Route path="/tab3">
             <Tab3 />
           </Route>
+
+          {/* Application default router */}
           <Route exact path="/">
             <Redirect to="/Home" />
           </Route>
