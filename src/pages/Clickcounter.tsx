@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
-import './Clickcounter.css';
+import './clickcounter.css';
 
-const Clickcounter: React.FC = () => {
+const clickcounter: React.FC = () => {
   const [clickCount, setClickCount] = useState(0);
 
   const handleButtonClick = () => {
@@ -34,4 +34,4 @@ const Clickcounter: React.FC = () => {
   );
 };
 
-export default Clickcounter;
+export default clickcounter;
