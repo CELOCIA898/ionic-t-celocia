@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonInput, IonGrid, IonRow, IonCol, IonLabel, IonButtons, IonBackButton } from '@ionic/react';
 import './calculator.css';
-import { calculator } from 'ionicons/icons';
+import {  } from 'ionicons/icons';
 
-const Calculator: React.FC = () => {
+const calculator: React.FC = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
 
