@@ -39,9 +39,9 @@ function Home() {
 
           <IonItem>
             <IonThumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+              <img alt="Silhouette of mountains" src="../src/assets/todo.png" />
             </IonThumbnail>
-            <IonLabel>Item</IonLabel>
+            <IonButton href='/Todolist'>Todolist</IonButton>
           </IonItem>
 
           <IonItem lines="none">
