@@ -1,0 +1,31 @@
+/* Clickcounter.css */
+
+.tab2-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .tab2-click-count {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .tab2-button {
+    background-color: #708194;
+    color: #302727;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .tab2-reset-button {
+    background-color: #df142b;
+    color: #dfd9d9;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
