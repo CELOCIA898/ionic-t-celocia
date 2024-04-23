@@ -1,47 +1,82 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonCheckbox, IonInput, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonCheckbox, IonInput, IonButton, IonIcon, IonButtons, IonBackButton } from '@ionic/react';
+import './Todolist.css';
+import { trash, create } from 'ionicons/icons';
 
 const Todolist: React.FC = () => {
-  const [tasks, setTasks] = useState<string[]>([]);
-  const [newTask, setNewTask] = useState<string>('');
+  const [todos, setTodos] = useState<string[]>([]);
+  const [newTodo, setNewTodo] = useState<string>('');
+  const [editIndex, setEditIndex] = useState<number>(-1);
 
-  const handleAddTask = () => {
-    if (newTask.trim() !== '') {
-      setTasks([...tasks, newTask.trim()]);
-      setNewTask('');
+  const addTodo = () => {
+    if (newTodo.trim() !== '') {
+      setTodos([...todos, newTodo]);
+      setNewTodo('');
     }
   };
 
-  const handleToggleTask = (index: number) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = tasks[index].startsWith('✓') ? tasks[index].substring(2) : `✓ ${tasks[index]}`;
-    setTasks(updatedTasks);
+  const removeTodo = (index: number) => {
+    const updatedTodos = [...todos];
+    updatedTodos.splice(index, 1);
+    setTodos(updatedTodos);
+  };
+
+  const editTodo = (index: number) => {
+    setEditIndex(index);
+    setNewTodo(todos[index]);
+  };
+
+  const updateTodo = () => {
+    if (newTodo.trim() !== '') {
+      const updatedTodos = [...todos];
+      updatedTodos[editIndex] = newTodo;
+      setTodos(updatedTodos);
+      setEditIndex(-1);
+      setNewTodo('');
+    }
+  };
+
+  const cancelEdit = () => {
+    setEditIndex(-1);
+    setNewTodo('');
+  };
+
+  const toggleTodo = (index: number) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index] = updatedTodos[index].startsWith('✅ ') ? updatedTodos[index].slice(2) : '✅ ' + updatedTodos[index];
+    setTodos(updatedTodos);
   };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Todolist</IonTitle>
+          <IonButtons slot="start">
+          <IonButton href='/Home'> Back</IonButton>
+          </IonButtons>
+          <IonTitle>Todo List</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonList>
-          {tasks.map((task, index) => (
+          <IonItem>
+            <IonInput placeholder="New Todo" value={newTodo} onIonChange={(e) => setNewTodo(e.detail.value!)} />
+            <IonButton slot="end" color="dark" onClick={addTodo}>Add</IonButton>
+          </IonItem>
+
+          {todos.map((todo, index) => (
             <IonItem key={index}>
-              <IonCheckbox slot="start" checked={task.startsWith('✓')} onIonChange={() => handleToggleTask(index)} />
-              <IonLabel>{task}</IonLabel>
+              <IonCheckbox slot="start" />
+              <IonLabel>{todo}</IonLabel>
+              <IonButton slot="end" color="light" onClick={() => removeTodo(index)}>
+                <IonIcon icon={trash} />
+              </IonButton>
+              <IonButton slot="end" color="light" onClick={() => editTodo(index)}>
+                <IonIcon icon={create} />
+              </IonButton>
             </IonItem>
           ))}
         </IonList>
-        <IonItem>
-          <IonInput
-            placeholder="Add a new task"
-            value={newTask}
-            onIonChange={(e) => setNewTask(e.detail.value!)}
-          ></IonInput>
-          <IonButton slot="end" onClick={handleAddTask}>Add</IonButton>
-        </IonItem>
       </IonContent>
     </IonPage>
   );
