@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -17,23 +18,23 @@ function Home() {
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle>Welcome to my application</IonCardTitle>
+        <IonCardTitle>Welcome to my Application</IonCardTitle>
         <IonCardSubtitle></IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent>
         <IonList>
           <IonItem>
             <IonThumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+              <img alt="Silhouette of mountains" src="../src/assets/click.png" />
             </IonThumbnail>
-            <IonLabel>Item</IonLabel>
+            <IonButton href='/clickcounter'>Clickcounter</IonButton>
           </IonItem>
 
           <IonItem>
             <IonThumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+              <img alt="Silhouette of mountains" src="../src/assets/calcu.jpg" />
             </IonThumbnail>
-            <IonLabel>Item</IonLabel>
+            <IonButton href='/Calculator'>Calculator</IonButton>
           </IonItem>
 
           <IonItem>
@@ -47,7 +48,7 @@ function Home() {
             <IonThumbnail slot="start">
               <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
             </IonThumbnail>
-            <IonLabel>Item</IonLabel>
+            <IonLabel></IonLabel>
           </IonItem>
         </IonList>
       </IonCardContent>
