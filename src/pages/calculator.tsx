@@ -29,7 +29,7 @@ const calculator: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+          <IonButton href='/Home'> Back</IonButton>
           </IonButtons>
           <IonTitle>Calculator</IonTitle>
         </IonToolbar>

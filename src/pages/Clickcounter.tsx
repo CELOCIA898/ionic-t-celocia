@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton, IonButton } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 import './Clickcounter.css';
 
 const Clickcounter: React.FC = () => {
   const [clickCount, setClickCount] = useState(0);
+  const history = useHistory();
 
   const handleButtonClick = () => {
     setClickCount(clickCount + 1);
@@ -18,7 +20,7 @@ const Clickcounter: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+          <IonButton href='/Home'> Back</IonButton>
           </IonButtons>
           <IonTitle>Click Counter</IonTitle>
         </IonToolbar>
