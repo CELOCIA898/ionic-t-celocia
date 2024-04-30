@@ -21,7 +21,7 @@ function Home() {
     { id: 1, label: 'Clickcounter', thumbnail: '../src/assets/click.png', href: 'clickcounter' },
     { id: 2, label: 'Calculator', thumbnail: '../src/assets/calcu.jpg', href: '/Calculator' },
     { id: 3, label: 'TodoList', thumbnail: '../src/assets/todo.png', href: '/TodoList' },
-    { id: 4, label: 'Quotesgenerator', thumbnail: '../src/assets/rizzCard.json', href: '/Quotesgenerator' },
+    { id: 4, label: 'Quotesgenerator', thumbnail: '../src/assets/Quotes.png', href: '/Quotesgenerator' },
   ];
 
   const filteredItems = items.filter((item) =>
