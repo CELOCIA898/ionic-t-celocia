@@ -21,8 +21,8 @@ const Profile: React.FC = () => {
         <IonCard>
         <img alt="Silhouette of mountains" src="./assets/celocia.jpg" />
         <IonCardHeader>
-          <IonCardTitle>Quicel Joy</IonCardTitle>
-          <IonCardSubtitle>student</IonCardSubtitle>
+          <IonCardTitle>Quicel Joy Celocia</IonCardTitle>
+          <IonCardSubtitle>Student</IonCardSubtitle>
         </IonCardHeader>
   
         <IonCardContent>Don't be trapped in someone else's dream</IonCardContent>
