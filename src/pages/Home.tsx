@@ -39,6 +39,12 @@ const cardData = [
     subtitle: 'Applet #4',
     link: '/quotegenerator', // Fixed typo in link
     img: 'src/assets/quotes.png', // Adjusted image path
+  },
+  {
+    title: 'Notes',
+    subtitle: 'Applet #4',
+    link: '/notes', // Fixed typo in link
+    img: 'src/assets/nt.jpg', // Adjusted image path
   }
 ];
 
