@@ -15,7 +15,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Clickcounter from './pages/Clickcounter';
 import Calculator from './pages/calculator';
-import Todolist from './pages/Todolist';
+import Todolist from './pages/Todolist/Todolist';
 import Quotegenerator from './pages/quotegenerator';
 import Notes from './pages/Notes/Notes';
 
@@ -46,9 +46,6 @@ const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
 
-        <Route exact path="/Todolist">
-            <Todolist/>
-          </Route>
          
         { /* Home Router */}
         <Route exact path="/Home">
@@ -65,6 +62,10 @@ const App: React.FC = () => (
           
           <Route path="/Calculator">
             <Calculator />
+          </Route>
+
+          <Route exact path="/todolist">
+            <Todolist/>
           </Route>
 
           <Route path="/quotegenerator">
