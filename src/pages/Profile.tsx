@@ -19,9 +19,9 @@ const Profile: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonCard>
-        <img alt="Silhouette of mountains" src="./assets/celocia.jpg" />
+        <img alt="Silhouette of mountains" src="src/assets/celocia.jpg" />
         <IonCardHeader>
-          <IonCardTitle>Quicel Joy Celocia</IonCardTitle>
+          <IonCardTitle>QUICEL JOY Q. CELOCIA</IonCardTitle>
           <IonCardSubtitle>Student</IonCardSubtitle>
         </IonCardHeader>
   
