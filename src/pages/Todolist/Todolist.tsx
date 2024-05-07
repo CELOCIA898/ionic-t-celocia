@@ -1,246 +1,103 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {
-  IonBackButton,
-  IonButton,
-  IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonPage,
-  IonRow,
-  IonTextarea,
-  IonTitle,
-  IonToolbar,
-  IonItemDivider,
-  useIonToast
-} from '@ionic/react';
-//Ionicons
-import { trashOutline, pencilOutline, checkmarkOutline } from 'ionicons/icons';
-
+import React, { useState, useEffect } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonCheckbox, IonInput, IonButton, IonIcon, IonButtons, IonBackButton } from '@ionic/react';
 import './Todolist.css';
+import { trash, create } from 'ionicons/icons';
 
 // Firebase
 import { collection, addDoc, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db } from './Firebase';
 
-const TodoList: React.FC = () => {
-  const [todolist, setTodos] = useState<{ id: string; title: string; description: string; dateAdded: string; completed: boolean }[]>([]);
-  const [newTitle, setNewTitle] = useState<string>('');
-  const [newDescription, setNewDescription] = useState<string>('');
-  const [editIndex, setEditIndex] = useState<number | null>(null);
-  const inputRefTitle = useRef<HTMLIonInputElement>(null);
-  const inputRefDescription = useRef<HTMLIonTextareaElement>(null);
-  const [present] = useIonToast();
+const Todolist: React.FC = () => {
+  const [todos, setTodos] = useState<string[]>([]);
+  const [newTodo, setNewTodo] = useState<string>('');
+  const [editIndex, setEditIndex] = useState<number>(-1);
 
-  // Clear the input field
-  const clearInput = () => {
-    setNewTitle('');
-    setNewDescription('');
-    if (inputRefTitle.current && inputRefDescription.current) {
-      inputRefTitle.current.setFocus();
-    }
-  };
-
-  // Toast
-  const addTodoToast = (position: 'middle') => {
-    present({
-      message: 'Added new Todo',
-      duration: 1500,
-      position: position,
-    });
-  };
-
-  const editTodoToast = (position: 'middle') => {
-    present({
-      message: 'Changes Saved',
-      duration: 1500,
-      position: position,
-    });
-  };
-
-  const deleteTodoToast = (position: 'middle') => {
-    present({
-      message: 'Todo deleted',
-      duration: 1500,
-      position: position,
-    });
-  };
-
-  //Create Todo
-  const addTodo = async () => {
-    if (newTitle.trim() !== '') {
-      if (editIndex !== null) {
-        // Update existing todo (not implemented in this code snippet)
-      } else {
-        const currentDate = new Date().toISOString();
-        addTodoToast('middle');
-        await addDoc(collection(db, 'todolist'), {
-          title: newTitle,
-          description: newDescription,
-          dateAdded: currentDate,
-          completed: false
-        });
-
-      }
-      clearInput();
-    }
-  };
-
-  //Read Firebase Data
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'todolist'), (snapshot) => {
-      setTodos(snapshot.docs.map(doc => ({
-        id: doc.id, // Include the id property
-        description: doc.data().description,
-        title: doc.data().title,
-        dateAdded: doc.data().dateAdded,
-        completed: doc.data().completed
-      })));
+      const todosData = snapshot.docs.map(doc => doc.data().text);
+      setTodos(todosData);
     });
+
     return () => unsubscribe();
   }, []);
 
-  // Edit Handler
-  const editTodo = (index: number) => {
-    setEditIndex(index);
-    const editedTodo = todolist[index];
-    setNewTitle(editedTodo.title);
-    setNewDescription(editedTodo.description);
-  };
-
-  // Update Firebase Data
-  const updateTodo = async () => {
-    if (editIndex !== null) {
-      editTodoToast('middle');
-      const todoToUpdate = todolist[editIndex];
-      await updateDoc(doc(db, 'todolist', todoToUpdate.id), {
-        title: newTitle,
-        description: newDescription,
-      });
-      // Clear the input fields and reset editIndex
-      clearInput();
-      setEditIndex(null);
+  const addTodo = async () => {
+    if (newTodo.trim() !== '') {
+      await addDoc(collection(db, 'todolist'), { text: newTodo });
+      setNewTodo('');
     }
   };
 
-  // Cancel Edit function
+  const removeTodo = async (index: number) => {
+    const todoSnapshot = await getTodoSnapshotAtIndex(index);
+    if (todoSnapshot) {
+      await deleteDoc(todoSnapshot.ref);
+    }
+  };
+
+  const editTodo = async (index: number) => {
+    setEditIndex(index);
+    setNewTodo(todos[index]);
+  };
+
+  const updateTodo = async () => {
+    if (newTodo.trim() !== '') {
+      const todoSnapshot = await getTodoSnapshotAtIndex(editIndex);
+      if (todoSnapshot) {
+        await updateDoc(todoSnapshot.ref, { text: newTodo });
+      }
+      setEditIndex(-1);
+      setNewTodo('');
+    }
+  };
+
   const cancelEdit = () => {
-    clearInput(); // Clear input fields
-    setEditIndex(null); // Reset editIndex
+    setEditIndex(-1);
+    setNewTodo('');
   };
 
-  // Delete Firebase Data
-  const deleteTodo = async (index: number) => {
-    deleteTodoToast('middle');
-    const todoToDelete = todolist[index];
-    // Delete todo from Firestore
-    await deleteDoc(doc(db, 'todolist', todoToDelete.id));
+  const toggleTodo = async (index: number) => {
+    const todoSnapshot = await getTodoSnapshotAtIndex(index);
+    if (todoSnapshot) {
+      const todoData = todoSnapshot.data();
+      if (todoData) {
+        await updateDoc(todoSnapshot.ref, { text: todoData.text.startsWith('✅ ') ? todoData.text.slice(2) : '✅ ' + todoData.text });
+      }
+    }
   };
 
-  // Toggle Completion
-  const toggleCompletion = async (index: number) => {
-    const updatedTodos = [...todolist];
-    updatedTodos[index].completed = !updatedTodos[index].completed;
-    setTodos(updatedTodos);
-
-    // Update completion status in Firestore
-    await updateDoc(doc(db, 'todolist', todolist[index].id), {
-      completed: updatedTodos[index].completed
-    });
+  const getTodoSnapshotAtIndex = async (index: number) => {
+    const snapshot = await onSnapshot(collection(db, 'todos'));
+    const todoSnapshots = snapshot.docs;
+    return todoSnapshots[index];
   };
 
   return (
-    <IonPage className="home-page">
+    <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonButton href='/Home'> Back</IonButton>
           </IonButtons>
-          <IonTitle>Todo</IonTitle>
+          <IonTitle>Todo List</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
-        <IonCard id="card_body">
-          <IonCardHeader>
-            <IonCardTitle>
-              <IonInput
-                placeholder="Type your task here"
-                label="Title"
-                id="custom-input"
-                labelPlacement="floating"
-                counter={true}
-                maxlength={50}
-                counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} / ${maxLength} characters remaining`}
-                value={newTitle}
-                onIonInput={(e) => setNewTitle(e.detail.value!)}
-                ref={inputRefTitle}
-              ></IonInput>
-            </IonCardTitle>
-            <IonCardSubtitle>
-              <IonTextarea
-                placeholder="Type task description here"
-                label="Description"
-                id="custom-input"
-                labelPlacement="floating"
-                counter={true}
-                maxlength={200}
-                counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} / ${maxLength} characters remaining`}
-                value={newDescription}
-                onIonInput={(e) => setNewDescription(e.detail.value!)}
-                ref={inputRefDescription}
-              ></IonTextarea>
-            </IonCardSubtitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonRow>
-              <IonCol>
-                <IonButton expand="block" onClick={editIndex !== null ? updateTodo : addTodo}>
-                  {editIndex !== null ? 'Update' : 'Add'}
-                </IonButton>
-              </IonCol>
-              <IonCol>
-                <IonButton expand="block" fill="clear" onClick={editIndex !== null ? cancelEdit : clearInput}>
-                  {editIndex !== null ? 'Cancel' : 'Clear'}
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonCardContent>
-        </IonCard>
-        {/*Todo list output*/}
-        <br></br>
-        <IonItemDivider color="light">
-          <IonLabel>Your tasks</IonLabel>
-        </IonItemDivider>
-        <IonList id="list_body">
-          {todolist
-            .slice() // Create a shallow copy of the todolist array to avoid mutating the original array
-            .sort((a, b) => new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime()) // Sort the array by dateAdded
-            .map((todo, index) => (
-              <IonItem key={index}>
-                <IonLabel onClick={() => toggleCompletion(index)} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-                  <h2>{todo.title}</h2>
-                  <p>{todo.description}</p>
-                  <p>{new Date(todo.dateAdded).toLocaleString()}</p>
-                </IonLabel>
-                <IonButton fill="clear" onClick={() => editTodo(index)}>
-                  
-                  <IonIcon icon={pencilOutline} />
-                Edit
+      <IonContent fullscreen>
+        <IonList>
+          <IonItem>
+            <IonInput placeholder="New Todo" value={newTodo} onIonChange={(e) => setNewTodo(e.detail.value!)} />
+            <IonButton slot="end" color="dark" onClick={addTodo}>Add</IonButton>
+          </IonItem>
+
+          {todos.map((todo, index) => (
+            <IonItem key={index}>
+              <IonCheckbox slot="start" onClick={() => toggleTodo(index)} />
+              <IonLabel>{todo}</IonLabel>
+              <IonButton slot="end" color="light" onClick={() => removeTodo(index)}>
+                <IonIcon icon={trash} />
               </IonButton>
-              <IonButton fill="clear" onClick={() => deleteTodo(index)}>
-                <IonIcon icon={trashOutline} />
-                Delete
+              <IonButton slot="end" color="light" onClick={() => editTodo(index)}>
+                <IonIcon icon={create} />
               </IonButton>
             </IonItem>
           ))}
@@ -250,4 +107,4 @@ const TodoList: React.FC = () => {
   );
 };
 
-export default TodoList;
+export default Todolist;
