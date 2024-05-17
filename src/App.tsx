@@ -45,55 +45,50 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-
+        <Route exact path="/ionic-t-celocia/">
+            <Redirect to="/ionic-t-celocia/home" />
+        </Route>
          
         { /* Home Router */}
-        <Route exact path="/ionic-t-celocia/Home">
+        <Route exact path="/ionic-t-celocia/home">
             <Home />
           </Route>
         
-          <Route exact path="/ionic-t-celocia/Profile">
+          <Route exact path="/ionic-t-celocia/profile">
             <Profile />
           </Route>
           
-          <Route exact path="/ionic-t-celocia/Clickcounter">
+          <Route exact path="/ionic-t-celocia/home/clickcounter">
             <Clickcounter />
           </Route>
           
-          <Route path="/ionic-t-celocia/Calculator">
+          <Route path="/ionic-t-celocia/home/calculator">
             <Calculator />
           </Route>
 
-          <Route exact path="/ionic-t-celocia/todolist">
+          <Route exact path="/ionic-t-celocia/home/todolist">
             <Todolist/>
           </Route>
 
-          <Route path="/ionic-t-celocia/quotegenerator">
+          <Route path="/ionic-t-celocia/home/quotegenerator">
             <Quotegenerator />
           </Route>
           
-          <Route path="/ionic-t-celocia/notes">
+          <Route path="/ionic-t-celocia/home/notes">
             <Notes />
           </Route>
           
 
           {/* Application default router */}
-          <Route exact path="/">
-            <Redirect to="/ionic-t-celocia/Home" />
-          </Route>
+      
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
 
-        <IonTabButton tab="Home" href="/ionic-t-celocia/Home">
+        <IonTabButton tab="Home" href="/ionic-t-celocia/home">
             <IonIcon aria-hidden="true" icon={homeOutline} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
 
-          <IonTabButton tab="blank" href="/ionic-t-celocia/blank">
-            <IonIcon aria-hidden="true" icon={closeOutline} />
-            <IonLabel>blank</IonLabel>
-          </IonTabButton>
-          
           <IonTabButton tab="Profile" href="/ionic-t-celocia/profile">
             <IonIcon aria-hidden="true" icon={personCircleOutline} />
             <IonLabel>Profile</IonLabel>
