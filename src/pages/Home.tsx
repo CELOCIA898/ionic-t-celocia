@@ -19,31 +19,31 @@ const cardData = [
   {
     title: 'Clickcounter',
     subtitle: 'Applet #1',
-    link: '/clickcounter/clickcounter',
+    link: '/ionic-t-celocia/home/clickcounter',
     img: '/assets/click.png',
   },
   {
     title: 'Calculator',
     subtitle: 'Applet #2',
-    link: '/calculator/calculator',
+    link: '/ionic-t-celocia/home/calculator',
     img: '/assets/calculator.png',
   },
   {
     title: 'Todo List',
     subtitle: 'Applet #3',
-    link: '/todolist/todolist',
+    link: '/ionic-t-celocia/home/todolist',
     img: '/assets/todo.png',
   },
   {
     title: 'Quote generator',
     subtitle: 'Applet #4',
-    link: '/quote/quotegenerator',
+    link: '/ionic-t-celocia/home/quotegenerator',
     img: '/assets/qt.png',
   },
   {
     title: 'Notes',
     subtitle: 'Applet #5',
-    link: '/notes/notes',
+    link: '/ionic-t-celocia/home/notes',
     img: '/assets/nt.png',
   }
 ];
