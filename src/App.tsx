@@ -84,17 +84,17 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
 
-        <IonTabButton tab="Home" href="/Home">
+        <IonTabButton tab="Home" href="/ionic-t-celocia/Home">
             <IonIcon aria-hidden="true" icon={homeOutline} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
 
-          <IonTabButton tab="blank" href="/ blank">
+          <IonTabButton tab="blank" href="/ionic-t-celocia/blank">
             <IonIcon aria-hidden="true" icon={closeOutline} />
             <IonLabel>blank</IonLabel>
           </IonTabButton>
           
-          <IonTabButton tab="Profile" href="/profile">
+          <IonTabButton tab="Profile" href="/ionic-t-celocia/profile">
             <IonIcon aria-hidden="true" icon={personCircleOutline} />
             <IonLabel>Profile</IonLabel>
           </IonTabButton>
