@@ -48,38 +48,38 @@ const App: React.FC = () => (
 
          
         { /* Home Router */}
-        <Route exact path="/Home">
+        <Route exact path="/ionic-t-celocia/Home">
             <Home />
           </Route>
         
-          <Route exact path="/Profile">
+          <Route exact path="/ionic-t-celocia/Profile">
             <Profile />
           </Route>
           
-          <Route exact path="/Clickcounter">
+          <Route exact path="/ionic-t-celocia/Clickcounter">
             <Clickcounter />
           </Route>
           
-          <Route path="/Calculator">
+          <Route path="/ionic-t-celocia/Calculator">
             <Calculator />
           </Route>
 
-          <Route exact path="/todolist">
+          <Route exact path="/ionic-t-celocia/todolist">
             <Todolist/>
           </Route>
 
-          <Route path="/quotegenerator">
+          <Route path="/ionic-t-celocia/quotegenerator">
             <Quotegenerator />
           </Route>
           
-          <Route path="/notes">
+          <Route path="/ionic-t-celocia/notes">
             <Notes />
           </Route>
           
 
           {/* Application default router */}
           <Route exact path="/">
-            <Redirect to="/Home" />
+            <Redirect to="/ionic-t-celocia/Home" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
