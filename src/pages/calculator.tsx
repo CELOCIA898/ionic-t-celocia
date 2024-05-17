@@ -29,7 +29,7 @@ const calculator: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-          <IonButton href='/Home'> Back</IonButton>
+          <IonButton href='/ionic-t-celocia/home'>Back</IonButton>
           </IonButtons>
           <IonTitle>Calculator</IonTitle>
         </IonToolbar>

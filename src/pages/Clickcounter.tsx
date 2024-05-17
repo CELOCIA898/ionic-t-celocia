@@ -22,12 +22,12 @@ const Clickcounter: React.FC = () => {
           <IonButtons slot='start'>
               <IonBackButton defaultHref='/app/home'/>
            </IonButtons>
-          <IonTitle>Click Counter</IonTitle>
+          <IonTitle>/ionic-t-celocia/home/Click Counter</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <div className="tab2-container">
-          <p className="tab2-click-count">Click Count: {clickCount}</p>
+          <p className="tab2-click-count">/ionic-t-celocia/home/Click Count: {clickCount}</p>
           <button className="tab2-button" onClick={handleButtonClick}>Click me</button>
           <button className="tab2-reset-button" onClick={handleResetClick}>Reset</button>
         </div>
