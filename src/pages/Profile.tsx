@@ -19,7 +19,7 @@ const Profile: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonCard>
-        <img alt="Silhouette of mountains" src="./assets/celocia.jpg" />
+        <img alt="Silhouette of mountains" src="https://raw.githubusercontent.com/CELOCIA898/ionic-t-celocia/main/src/assets/celocia.jpg" />
         <IonCardHeader>
           <IonCardTitle>Quicel Joy Celocia</IonCardTitle>
           <IonCardSubtitle>Student</IonCardSubtitle>
