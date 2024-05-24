@@ -1,0 +1,32 @@
+/* Home.css */
+
+/* Style for the header */
+ion-header {
+    background-color: #215fc90e; /* Adjust color as needed */
+    color: #9ed1124b;
+  }
+  
+  /* Style for the title */
+  ion-title {
+    font-size: 24px;
+  }
+  
+  /* Style for the search bar */
+  ion-searchbar {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the grid */
+  ion-grid {
+    margin-top: 20px;
+  }
+  
+  /* Style for the card */
+  ion-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+  }
+  
+.home-card-title{
+    font-size: .8rem;
+}
